@@ -1,9 +1,34 @@
 {
-	"host": "localhost",
-	"port": 3030,
-	"public": "../public/",
-	"paginate": {
-		"default": 10,
-		"max": 50
-	}
+  "host": "localhost",
+  "port": 3030,
+  "public": "../public/",
+  "paginate": {
+    "default": 10,
+    "max": 50
+  },
+  "mongodb": "mongodb://localhost:27017/chat_demo",
+  "authentication": {
+    "secret": "cb0d93c64d00da212ad5df4c0b527d057273691c848c14fab9252ec1d299290db16414b7de5c4ca77d00bac953de0f56716e84052417949303e0f7e47ec7e4a8d4bb6560a819b7f50d5ea5b46283bf61045b76a63f007e01184ba37d53301a2767339912e8c179f5321045d5cb155e0ee0b988644cb7bad62296e177b54fd137d5f9dda482508f99d4b183f1eb2a62c5ab117b42d925bee0f47d94c3477af94b97e4ca716f71b969be61d4de62c11902e94f4b267c2d946e6adb44c78e3fe29bd3694b1513c342f0fa681ddffdb41fca7e8a05b9c0bf855b5b5f4aaf10a5706a68d1e4f26fd58d93129f53e86107ad8565dff83e32cfeefb7ca7b69ff2f91f88",
+    "strategies": [
+      "jwt",
+      "local"
+    ],
+    "path": "/authentication",
+    "service": "users",
+    "jwt": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "entity": "user",
+      "usernameField": "email",
+      "passwordField": "password"
+    }
+  }
 }
