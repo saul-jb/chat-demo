@@ -15,9 +15,9 @@ const services = require("./services");
 const appHooks = require("./app.hooks");
 const channels = require("./channels");
 
-const mongoose = require('./mongoose');
+const mongoose = require("./mongoose");
 
-const authentication = require('./authentication');
+const authentication = require("./authentication");
 
 const app = express(feathers());
 
