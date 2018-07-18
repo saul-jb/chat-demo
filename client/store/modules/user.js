@@ -6,7 +6,9 @@ export default {
 	namespaced: true,
 
 	state: {
-		authenticated: false
+		id: null,
+		username: null,
+		email: null
 	},
 
 	getters: {
@@ -20,10 +22,10 @@ export default {
 					email,
 					username,
 					password
-				}).then(user => {
-					commit("setAuthState", true);
+				}).then(res => {
+					commit("setUserDetails", res.user);
 
-					resolve(user);
+					resolve(res);
 				}).catch(err => {
 					reject(err);
 				});
@@ -32,34 +34,22 @@ export default {
 
 		signIn ({commit}, {email = null, password = null}) {
 			return new Promise((resolve, reject) => {
+				const payload = (email && password)
+					? {strategy: "local", email, password} : {};
+
 				// Sign in with email and password
-				if (email && password) {
-					client.authenticate({
-						strategy: "local",
-						email,
-						password
-					}).then(payload => {
-						commit("setAuthState", true);
+				client.authenticate(payload).then(res => {
+					commit("setUserDetails", res.user);
 
-						resolve(payload);
-					}).catch(err => {
-						reject(err);
-					});
-				} else {
-					// Attempt sign in with saved token
-					client.authenticate().then(payload => {
-						commit("setAuthState", true);
-
-						resolve(payload);
-					}).catch(err => {
-						reject(err);
-					});
-				}
+					resolve(res);
+				}).catch(err => {
+					reject(err);
+				});
 			});
 		},
 
 		signOut ({commit}) {
-			commit("setAuthState", false);
+			commit("setUserDetails", {username: null, email: null, id: null});
 
 			client.logout();
 		},
@@ -70,9 +60,10 @@ export default {
 	},
 
 	mutations: {
-		setAuthState (state, value) {
-			state.authenticated = value;
-			console.log(state.authenticated);
+		setUserDetails (state, user) {
+			state.id = user._id;
+			state.username = user.username;
+			state.email = user.email;
 		}
 	}
 };

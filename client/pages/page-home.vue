@@ -1,9 +1,6 @@
 <template>
 	<div>
-		The Home Page! {{ this.$store.state.user.authenticated }}
-		<button @click="authenticate">login</button>
-		<button @click="signOut">logout</button>
-		<button @click="createAccount('testsadsa')">createAccount</button>
+		The Home Page!
 		<button @click="getAccounts">getAccounts</button>
 
 		<div v-for="account in userAccounts">
@@ -23,14 +20,6 @@
 		},
 
 		methods: {
-			authenticate () {
-				this.signIn({email: "test@test.com", password: "test"}).then(payload => {
-					console.log("AUTHENTICATED");
-				}).catch(err => {
-					console.error(err);
-				});
-			},
-
 			getAccounts () {
 				this.accounts().then(accounts => {
 					this.userAccounts = accounts.data;
@@ -40,10 +29,7 @@
 			},
 
 			...mapActions("user", {
-				createAccount: "createAccount",
-				signOut: "signOut",
-				accounts: "getAccounts",
-				signIn: "signIn"
+				accounts: "getAccounts"
 			})
 		}
 	};

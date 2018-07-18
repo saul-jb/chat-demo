@@ -21,6 +21,16 @@ module.exports = function (app) {
 			remove: [
 				authentication.hooks.authenticate("jwt")
 			]
+		},
+		after: {
+			create: [
+				hook => {
+					if (hook.params.user.email) {
+						hook.result.user = hook.params.user;
+						delete hook.result.user.password; // The password is hashed but since its not needed why bother returning it?
+					}
+				}
+			]
 		}
 	});
 };

@@ -64,10 +64,10 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
 	document.title = to.name;
 
-	if (to.meta.auth && !store.state.user.authenticated) {
+	if (to.meta.auth && !store.state.user.id) {
 		// Needs auth and not authenticated
 		next("/signin");
-	} else if (to.meta.authHidden && store.state.user.authenticated) {
+	} else if (to.meta.authHidden && store.state.user.id) {
 		// Needs to be signed out but we are signed in
 		next("/chat");
 	} else {
