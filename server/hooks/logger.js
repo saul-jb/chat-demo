@@ -1,7 +1,28 @@
 // A hook that logs service method before, after and error
 // See https://github.com/winstonjs/winston for documentation
 // about the logger.
-const logger = require("winston");
+const winston = require("winston");
+
+let date = new Date().toISOString();
+
+const logFormat = winston.format.printf(function (info) {
+	return `${date}-${info.level}: ${JSON.stringify(info.message, null, 4)}`;
+});
+
+const logger = winston.createLogger({
+	level: "info",
+	format: winston.format.json(),
+	transports: [
+		new winston.transports.File({ filename: "error.log", level: "error" }),
+		new winston.transports.File({ filename: "combined.log" })
+	]
+});
+
+if (process.env.NODE_ENV !== "production") {
+	logger.add(new winston.transports.Console({
+		format: winston.format.combine(winston.format.colorize(), logFormat)
+	}));
+}
 
 // To see more detailed messages, uncomment the following line
 // logger.level = 'debug';

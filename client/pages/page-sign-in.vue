@@ -32,6 +32,8 @@
 					email: this.email,
 					password: this.password
 				}).then(() => {
+					this.password = null;
+
 					this.$router.push({name: "Chat"});
 				}).catch(err => {
 					this.error = err.message;
