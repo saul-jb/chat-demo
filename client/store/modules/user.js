@@ -30,31 +30,31 @@ export default {
 			});
 		},
 
-		signIn ({commit}, {email, password}) {
+		signIn ({commit}, {email = null, password = null}) {
 			return new Promise((resolve, reject) => {
-				// Attempt sign in with saved token
-				client.authenticate().then(payload => {
-					commit("setAuthState", true);
+				// Sign in with email and password
+				if (email && password) {
+					client.authenticate({
+						strategy: "local",
+						email,
+						password
+					}).then(payload => {
+						commit("setAuthState", true);
 
-					resolve(payload);
-				}).catch(err => {
-					// Sign in with email and password
-					if (email && password) {
-						client.authenticate({
-							strategy: "local",
-							email,
-							password
-						}).then(payload => {
-							commit("setAuthState", true);
-
-							resolve(payload);
-						}).catch(err => {
-							reject(err);
-						});
-					} else {
+						resolve(payload);
+					}).catch(err => {
 						reject(err);
-					}
-				});
+					});
+				} else {
+					// Attempt sign in with saved token
+					client.authenticate().then(payload => {
+						commit("setAuthState", true);
+
+						resolve(payload);
+					}).catch(err => {
+						reject(err);
+					});
+				}
 			});
 		},
 

@@ -28,17 +28,34 @@ const router = new Router({
 		{
 			path: "/register",
 			name: "Register",
-			component: Register
+			component: Register,
+			meta: {
+				authHidden: true
+			}
 		},
 		{
 			path: "/signin",
 			name: "SignIn",
-			component: SignIn
+			component: SignIn,
+			beforeEnter (to, from, next) {
+				// Attempt a sign in with jwt before we request details
+				store.dispatch("user/signIn", {}).then(() => {
+					next("/chat");
+				}).catch(() => {
+					next();
+				});
+			},
+			meta: {
+				authHidden: true
+			}
 		},
 		{
 			path: "/signout",
 			name: "SignOut",
-			component: SignOut
+			component: SignOut,
+			meta: {
+				auth: true
+			}
 		},
 		{
 			path: "*",
@@ -51,7 +68,11 @@ router.beforeEach((to, from, next) => {
 	document.title = to.name;
 
 	if (to.meta.auth && !store.state.user.authenticated) {
+		// Needs auth and not authenticated
 		next("/signin");
+	} else if (to.meta.authHidden && store.state.user.authenticated) {
+		// Needs to be signed out but we are signed in
+		next("/chat");
 	} else {
 		next();
 	}
