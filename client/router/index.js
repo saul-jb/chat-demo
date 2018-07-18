@@ -52,10 +52,7 @@ const router = new Router({
 		{
 			path: "/signout",
 			name: "SignOut",
-			component: SignOut,
-			meta: {
-				auth: true
-			}
+			component: SignOut
 		},
 		{
 			path: "*",
