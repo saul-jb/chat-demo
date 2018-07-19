@@ -6,7 +6,8 @@ export default {
 	namespaced: true,
 
 	state: {
-		channels: []
+		channels: [],
+		currentChannel: null
 	},
 
 	getters: {
@@ -16,7 +17,6 @@ export default {
 	actions: {
 		getChannels ({commit}, criteria) {
 			return new Promise((resolve, reject) => {
-				console.log({query: criteria});
 				channelService.find({query: criteria}).then(result => {
 					commit("setChannels", result.data);
 
@@ -38,12 +38,21 @@ export default {
 					reject(err);
 				});
 			});
+		},
+
+		joinChannel ({commit}, channelId) {
+			// This handles the logic for a user joining a channel
+			// Like call addChannelToUser
 		}
 	},
 
 	mutations: {
 		setChannels (state, channels) {
 			state.channels = channels;
+		},
+
+		setCurrentChannel (state, channel) {
+			state.currentChannel = channel;
 		}
 	}
 };

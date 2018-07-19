@@ -7,6 +7,8 @@
 </template>
 
 <script>
+	import {mapMutations} from "vuex";
+
 	export default {
 		props: {
 			channel: {
@@ -30,8 +32,10 @@
 
 		methods: {
 			selectChannel () {
+				this.setCurrentChannel(this.channel);
+			},
 
-			}
+			...mapMutations("channels", ["setCurrentChannel"])
 		}
 	};
 </script>

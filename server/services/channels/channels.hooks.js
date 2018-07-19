@@ -14,7 +14,9 @@ module.exports = {
 		all: [],
 		find: [],
 		get: [],
-		create: [],
+		create: [
+			// Add this channel to the user who created it via admins[0]
+		],
 		update: [],
 		patch: [],
 		remove: []
