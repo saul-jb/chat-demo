@@ -14,7 +14,19 @@ export default {
 	},
 
 	actions: {
-
+		createMessage ({commit}, {text, userId, channelId}) {
+			return new Promise((resolve, reject) => {
+				messagesService.create({
+					text,
+					user: userId,
+					channel: channelId
+				}).then(message => {
+					resolve(message);
+				}).catch(err => {
+					reject(err);
+				});
+			});
+		}
 	},
 
 	mutations: {

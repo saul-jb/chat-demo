@@ -8,7 +8,6 @@
 
 <script>
 	import {mapState} from "vuex";
-	import client from "@libs/client";
 
 	export default {
 		data () {
@@ -25,12 +24,6 @@
 			currentChannel (newChannel, oldChannel) {
 				console.log(newChannel._id);
 			}
-		},
-
-		created () {
-			client.service("messages").on("created", message => {
-				console.log("Message CREATED!", message);
-			});
 		}
 	};
 </script>

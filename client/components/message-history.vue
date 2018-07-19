@@ -5,8 +5,14 @@
 </template>
 
 <script>
-	export default {
+	import client from "@libs/client";
 
+	export default {
+		created () {
+			client.service("messages").on("created", message => {
+				console.log("Message CREATED!", message);
+			});
+		}
 	};
 </script>
 
