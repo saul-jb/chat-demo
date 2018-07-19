@@ -23,7 +23,7 @@ export default {
 					username,
 					password
 				}).then(res => {
-					commit("setUserDetails", res.user);
+					commit("setUserDetails", res);
 
 					resolve(res);
 				}).catch(err => {
@@ -54,8 +54,12 @@ export default {
 			client.logout();
 		},
 
-		getAccounts () {
-			return userService.find();
+		getAccounts ({commit}, criteria) {
+			return userService.find({query: criteria});
+		},
+
+		addChannelToUser ({commit, state}, channelId) {
+			userService.patch(state.id, {$push: {channels: channelId}});
 		}
 	},
 
