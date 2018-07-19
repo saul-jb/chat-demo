@@ -18,6 +18,8 @@ export default {
 			return new Promise((resolve, reject) => {
 				console.log({query: criteria});
 				channelService.find({query: criteria}).then(result => {
+					commit("setChannels", result.data);
+
 					resolve(result);
 				}).catch(err => {
 					reject(err);
@@ -30,8 +32,8 @@ export default {
 				channelService.create({
 					title,
 					admins: [userId]
-				}).then(user => {
-					resolve(user);
+				}).then(channel => {
+					resolve(channel);
 				}).catch(err => {
 					reject(err);
 				});
@@ -40,6 +42,8 @@ export default {
 	},
 
 	mutations: {
-
+		setChannels (state, channels) {
+			state.channels = channels;
+		}
 	}
 };

@@ -6,6 +6,7 @@ import Home from "@/pages/page-home";
 import Register from "@/pages/page-register";
 import SignIn from "@/pages/page-sign-in";
 import SignOut from "@/pages/page-sign-out";
+import ChannelCreate from "@/pages/page-channel-create";
 
 Vue.use(Router);
 
@@ -53,6 +54,14 @@ const router = new Router({
 			path: "/signout",
 			name: "SignOut",
 			component: SignOut
+		},
+		{
+			path: "/create",
+			name: "CreateChannel",
+			component: ChannelCreate,
+			meta: {
+				auth: true
+			}
 		},
 		{
 			path: "*",

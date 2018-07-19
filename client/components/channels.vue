@@ -1,49 +1,47 @@
 <template>
 	<div>
 		<button @click="getUserChannels">getUserChannels</button>
-		<button @click="newChannel">newChannel</button>
 
 		<div v-for="channel in userChannels">
-			{{ channel }}
+			<Channel :channel="channel" />
 		</div>
+
+		<router-link :to="{ name: 'CreateChannel', params: {} }">Create channel</router-link>
 	</div>
 </template>
 
 <script>
 	import {mapActions, mapState} from "vuex";
+	import Channel from "./channel";
 
 	export default {
 		data () {
 			return {
-				userChannels: []
 			};
 		},
 
 		computed: {
 			...mapState("user", {
 				userId: "id"
+			}),
+
+			...mapState("channels", {
+				userChannels: "channels"
 			})
 		},
 
 		methods: {
 			getUserChannels () {
-				this.getChannels({admins: this.userId}).then(channels => {
-					console.log(channels);
-					this.userChannels = channels.data;
-				}).catch(err => {
+				this.getChannels({admins: this.userId}).catch(err => {
 					console.error(err);
 				});
 			},
 
-			newChannel () {
-				this.createChannel({title: "test", userId: this.userId}).then(channel => {
-					this.getUserChannels();
-				}).catch(err => {
-					console.error(err);
-				});
-			},
+			...mapActions("channels", ["getChannels"])
+		},
 
-			...mapActions("channels", ["getChannels", "createChannel"])
+		components: {
+			Channel
 		}
 	};
 </script>
