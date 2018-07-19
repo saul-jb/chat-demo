@@ -23,10 +23,8 @@
 
 		watch: {
 			currentChannel (newChannel, oldChannel) {
-				console.log(newChannel._id);
 				this.getAccounts({channels: newChannel._id}).then(res => {
 					this.users = res.data;
-					console.log(res);
 				}).catch(err => {
 					console.error(err);
 				});

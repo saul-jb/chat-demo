@@ -2,12 +2,12 @@
 	<div>
 		message box
 		<textarea v-model="text" />
-		<button @click.prevent="send">Send</button>
+		<button @click.prevent="send" :disabled="!currentChannel">Send</button>
 	</div>
 </template>
 
 <script>
-	import {mapState} from "vuex";
+	import {mapState, mapActions} from "vuex";
 
 	export default {
 		data () {
@@ -17,13 +17,24 @@
 		},
 
 		computed: {
-			...mapState("channels", ["currentChannel"])
+			...mapState("channels", ["currentChannel"]),
+			...mapState("user", ["id"])
 		},
 
-		watch: {
-			currentChannel (newChannel, oldChannel) {
-				console.log(newChannel._id);
-			}
+		methods: {
+			send () {
+				this.createMessage({
+					text: this.text,
+					userId: this.id,
+					channelId: this.currentChannel._id
+				}).then(res => {
+					console.log(res);
+				}).catch(err => {
+					console.error(err);
+				});
+			},
+
+			...mapActions("messages", ["createMessage"])
 		}
 	};
 </script>

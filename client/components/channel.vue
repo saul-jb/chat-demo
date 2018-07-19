@@ -30,7 +30,7 @@
 
 		methods: {
 			selectChannel () {
-				this.$emit("selectChannel", this.channel);
+				this.$emit("selectedChannel", this.channel);
 			}
 		}
 	};

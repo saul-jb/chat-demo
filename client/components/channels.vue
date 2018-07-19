@@ -11,7 +11,7 @@
 </template>
 
 <script>
-	import {mapActions, mapState} from "vuex";
+	import {mapActions, mapState, mapMutations} from "vuex";
 	import Channel from "./channel";
 
 	export default {
@@ -46,7 +46,8 @@
 				this.setCurrentChannel(channel);
 			},
 
-			...mapActions("channels", ["getChannels", "setCurrentChannel"])
+			...mapActions("channels", ["getChannels"]),
+			...mapMutations("channels", ["setCurrentChannel"])
 		},
 
 		components: {
