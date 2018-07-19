@@ -15,7 +15,11 @@ module.exports = {
 		find: [],
 		get: [],
 		create: [
-			// Add this channel to the user who created it via admins[0]
+			context => {
+				// Add the channel to the creators channel list
+				context.app.service("users").patch(context.params.user._id, {$push: {channels: context.result._id}});
+				return context;
+			}
 		],
 		update: [],
 		patch: [],

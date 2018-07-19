@@ -3,7 +3,7 @@
 		<button @click="getUserChannels">getUserChannels</button>
 
 		<div v-for="channel in userChannels">
-			<Channel :channel="channel" />
+			<Channel :channel="channel" @selectedChannel="selectedChannel" />
 		</div>
 
 		<router-link :to="{ name: 'CreateChannel', params: {} }">Create channel</router-link>
@@ -37,7 +37,11 @@
 				});
 			},
 
-			...mapActions("channels", ["getChannels"])
+			selectedChannel (channel) {
+				this.setCurrentChannel(channel);
+			},
+
+			...mapActions("channels", ["getChannels, setCurrentChannel"])
 		},
 
 		components: {
