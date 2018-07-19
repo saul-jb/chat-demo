@@ -2,7 +2,7 @@
 	<div>
 		message history
 		<div v-for="message in messages">
-			{{ message.text }}
+			{{ message.username }}: {{ message.text }}
 		</div>
 	</div>
 </template>
