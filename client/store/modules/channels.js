@@ -15,10 +15,12 @@ export default {
 	},
 
 	actions: {
-		getChannels ({commit}, criteria) {
+		getChannels ({commit}, {criteria, update}) {
 			return new Promise((resolve, reject) => {
 				channelService.find({query: criteria}).then(result => {
-					commit("setChannels", result.data);
+					if (update) {
+						commit("setChannels", result.data);
+					}
 
 					resolve(result);
 				}).catch(err => {
@@ -40,9 +42,22 @@ export default {
 			});
 		},
 
-		joinChannel ({commit}, channelId) {
-			// This handles the logic for a user joining a channel
-			// Like call addChannelToUser
+		joinChannel ({commit, dispatch}, channelId) {
+			return new Promise((resolve, reject) => {
+				// This handles the logic for a user joining a channel
+				// Like call addChannelToUser
+				dispatch("getChannels", {
+					criteria: {
+						_id: channelId
+					},
+					update: false
+				}).then(res => {
+					console.log(res);
+					// dispatch("users/addChannelToUser", {}, {root: true});
+				}).catch(err => {
+					reject(err);
+				});
+			});
 		}
 	},
 

@@ -32,7 +32,12 @@
 
 		methods: {
 			getUserChannels () {
-				this.getChannels({admins: this.userId}).catch(err => {
+				this.getChannels({
+					criteria: {
+						admins: this.userId
+					},
+					update: true
+				}).catch(err => {
 					console.error(err);
 				});
 			},
@@ -41,7 +46,7 @@
 				this.setCurrentChannel(channel);
 			},
 
-			...mapActions("channels", ["getChannels, setCurrentChannel"])
+			...mapActions("channels", ["getChannels", "setCurrentChannel"])
 		},
 
 		components: {

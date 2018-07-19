@@ -7,6 +7,9 @@
 </template>
 
 <script>
+	import {mapState} from "vuex";
+	import client from "@libs/client";
+
 	export default {
 		data () {
 			return {
@@ -14,10 +17,20 @@
 			};
 		},
 
-		methods: {
-			send () {
-				console.log(this.text);
+		computed: {
+			...mapState("channels", ["currentChannel"])
+		},
+
+		watch: {
+			currentChannel (newChannel, oldChannel) {
+				console.log(newChannel._id);
 			}
+		},
+
+		created () {
+			client.service("messages").on("created", message => {
+				console.log("Message CREATED!", message);
+			});
 		}
 	};
 </script>
