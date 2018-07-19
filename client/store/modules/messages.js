@@ -6,7 +6,6 @@ export default {
 	namespaced: true,
 
 	state: {
-
 	},
 
 	getters: {
@@ -26,6 +25,10 @@ export default {
 					reject(err);
 				});
 			});
+		},
+
+		getMessages ({commit}, criteria) {
+			return messagesService.find({query: criteria});
 		}
 	},
 
