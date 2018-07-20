@@ -15,7 +15,7 @@ export default {
 	},
 
 	actions: {
-		getChannels ({commit}, {criteria, update}) {
+		getChannels ({commit}, {criteria = {}, update = false}) {
 			return new Promise((resolve, reject) => {
 				channelService.find({query: criteria}).then(result => {
 					if (update) {

@@ -1,10 +1,11 @@
 <template>
 	<div>
 		<div v-for="channel in userChannels">
-			<Channel :channel="channel" @selectedChannel="selectedChannel" />
+			<Channel :channel="channel" :unread="channel.unread" @selectedChannel="selectedChannel" />
 		</div>
 
 		<button @click="newChannel">New Channel</button>
+		<button @click="viewChannels">View Channels</button>
 	</div>
 </template>
 
@@ -46,6 +47,10 @@
 
 			newChannel () {
 				this.$router.push({name: "CreateChannel"});
+			},
+
+			viewChannels () {
+				this.$router.push({name: "ViewChannels"});
 			},
 
 			...mapActions("channels", ["getChannels"]),

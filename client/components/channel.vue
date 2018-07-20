@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<button @click="selectChannel">
-			{{ channel.title }} <span v-if="channel.unread">({{ channel.unread }})</span>
+			{{ channel.title }} <span v-if="unread">({{ unread }})</span>
 		</button>
 	</div>
 </template>
@@ -20,6 +20,19 @@
 
 					if (!value.admins || !value.admins[0] || typeof value.admins[0] !== "string") {
 						console.error("Error channels must have a admin with type of string");
+						return false;
+					}
+
+					return true;
+				}
+			},
+
+			unread: {
+				type: Number,
+				required: false,
+				validator: value => {
+					if (value < 0) {
+						console.error("Error, Unread count cannot be a negative number.");
 						return false;
 					}
 
