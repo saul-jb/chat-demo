@@ -1,12 +1,18 @@
 <template>
-	<div>
-		Please signin
+	<div class="page">
 		<form @submit.prevent="signIn">
-			<div v-if="error">
+			<h2>Sign In</h2>
+			<div class="error" v-if="error">
 				{{error}}
 			</div>
-			<input v-model="email" type="email" />
-			<input v-model="password" type="password" />
+			<label for="email">
+				Email:
+				<input required v-model="email" type="email" id="username" />
+			</label>
+			<label for="password">
+				Password:
+				<input required v-model="password" type="password" id="password" />
+			</label>
 			<button>Submit</button>
 		</form>
 	</div>
@@ -48,5 +54,47 @@
 </script>
 
 <style scoped>
+	.page {
+		display: flex;
+		align-items: center;
+	}
 
+	form {
+		width: 60%;
+		max-width: 400px;
+
+		margin: auto;
+
+		display: flex;
+		flex-direction: column;
+	}
+
+	h2 {
+		text-align: center;
+	}
+
+	label {
+		align-items: center;
+
+		width: 100%;
+
+		padding: 8px 0;
+	}
+
+	.error {
+		border: 1px solid red;
+		padding: 10px;
+
+		text-align: center;
+
+		background-color: #ff9999;
+	}
+
+	input {
+		width: 100%;
+	}
+
+	button {
+		margin-top: 10px;
+	}
 </style>

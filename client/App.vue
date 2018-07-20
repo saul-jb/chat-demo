@@ -25,7 +25,9 @@
 			</ul>
 		</nav>
 
-		<router-view></router-view>
+		<main>
+			<router-view></router-view>
+		</main>
 	</div>
 </template>
 
@@ -40,6 +42,7 @@
 </script>
 
 <style>
+	/* General */
 	* {
 		box-sizing: border-box;
 	}
@@ -48,6 +51,7 @@
 		border: none;
 		padding: 0;
 		margin: 0;
+
 		width:100%;
 		height: 100%;
 	}
@@ -55,9 +59,27 @@
 	a {
 		outline: 0;
 	}
+
+	/* Pages */
+
+	/* Content */
+	main {
+		padding: 0px 10%;
+
+		height: calc(100% - 30px);
+	}
+
+	.page {
+		background-color: #cce6ff;
+
+		height: 100%;
+
+		padding: 4% 8%;
+	}
 </style>
 
 <style scoped>
+	/* Navigation */
 	nav {
 		display: flex;
 

@@ -1,6 +1,6 @@
 <template>
-	<div>
-		Signout successful!
+	<div class="page">
+		<h2>Signout successful!</h2>
 	</div>
 </template>
 
@@ -21,5 +21,13 @@
 </script>
 
 <style scoped>
+	.page{
+		display: flex;
+		align-items: center;
+	}
 
+	h2 {
+		text-align: center;
+		width: 100%;
+	}
 </style>
