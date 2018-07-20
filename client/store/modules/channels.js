@@ -63,11 +63,19 @@ export default {
 
 	mutations: {
 		setChannels (state, channels) {
+			channels.map(channel => {
+				channel.unread = 0;
+			});
 			state.channels = channels;
 		},
 
 		setCurrentChannel (state, channel) {
+			channel.unread = 0;
 			state.currentChannel = channel;
+		},
+
+		addUnreadMessage (state, channelId) {
+			state.channels.find(channel => channel._id === channelId).unread++;
 		}
 	}
 };

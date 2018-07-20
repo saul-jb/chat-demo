@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div :disabled="!currentChannel">
 		message history
 		<div v-for="message in messages">
 			{{ message.username }}: {{ message.text }}
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	import {mapState, mapActions} from "vuex";
+	import {mapState, mapActions, mapMutations} from "vuex";
 	import client from "@/libs/client";
 
 	export default {
@@ -22,6 +22,8 @@
 			client.service("messages").on("created", message => {
 				if (message.channel === this.currentChannel._id) {
 					this.messages.push(message);
+				} else {
+					this.addUnreadMessage(message.channel);
 				}
 			});
 		},
@@ -42,7 +44,8 @@
 		},
 
 		methods: {
-			...mapActions("messages", ["getMessages"])
+			...mapActions("messages", ["getMessages"]),
+			...mapMutations("channels", ["addUnreadMessage"])
 		}
 	};
 </script>
