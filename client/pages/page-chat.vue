@@ -1,10 +1,11 @@
 <template>
-	<div>
-		Enjoy chat
-		<Channels />
-		<MessageHistory />
-		<MessageBox />
-		<Users />
+	<div class="chat-page">
+		<Channels id="channels" />
+		<div id="message">
+			<MessageHistory id="message-history" />
+			<MessageBox id="message-box" />
+		</div>
+		<Users id="users" />
 	</div>
 </template>
 
@@ -25,5 +26,46 @@
 </script>
 
 <style scoped>
+	.chat-page {
+		display: flex;
+		height: 100%;
+	}
 
+	#channels {
+		background-color: red;
+
+		width: 10%;
+		height: 100%;
+
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	#users {
+		background-color: blue;
+
+		width: 10%;
+		height: 100%;
+
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	#message {
+		width: 80%;
+	}
+
+	#message-history {
+		background-color: yellow;
+
+		width: 100%;
+		height: 80%;
+	}
+
+	#message-box {
+		background-color: green;
+
+		width: 100%;
+		height: 20%;
+	}
 </style>

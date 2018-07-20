@@ -1,7 +1,5 @@
 <template>
 	<div>
-		<button @click="getUserChannels">getUserChannels</button>
-
 		<div v-for="channel in userChannels">
 			<Channel :channel="channel" @selectedChannel="selectedChannel" />
 		</div>
@@ -30,18 +28,18 @@
 			})
 		},
 
-		methods: {
-			getUserChannels () {
-				this.getChannels({
-					criteria: {
-						admins: this.userId
-					},
-					update: true
-				}).catch(err => {
-					console.error(err);
-				});
-			},
+		created () {
+			this.getChannels({
+				criteria: {
+					admins: this.userId
+				},
+				update: true
+			}).catch(err => {
+				console.error(err);
+			});
+		},
 
+		methods: {
 			selectedChannel (channel) {
 				this.setCurrentChannel(channel);
 			},
