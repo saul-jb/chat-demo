@@ -28,6 +28,12 @@
 			}
 		},
 
+		computed: {
+			title () {
+				return this.channel.title;
+			}
+		},
+
 		methods: {
 			selectChannel () {
 				this.$emit("selectedChannel", this.channel);
@@ -37,5 +43,7 @@
 </script>
 
 <style scoped>
-
+	button {
+		width: 100%;
+	}
 </style>

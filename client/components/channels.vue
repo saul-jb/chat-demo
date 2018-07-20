@@ -4,7 +4,7 @@
 			<Channel :channel="channel" @selectedChannel="selectedChannel" />
 		</div>
 
-		<router-link :to="{ name: 'CreateChannel', params: {} }">Create channel</router-link>
+		<button @click="newChannel">New Channel</button>
 	</div>
 </template>
 
@@ -44,6 +44,10 @@
 				this.setCurrentChannel(channel);
 			},
 
+			newChannel () {
+				this.$router.push({name: "CreateChannel"});
+			},
+
 			...mapActions("channels", ["getChannels"]),
 			...mapMutations("channels", ["setCurrentChannel"])
 		},
@@ -55,5 +59,7 @@
 </script>
 
 <style scoped>
-
+	button {
+		width: 100%;
+	}
 </style>

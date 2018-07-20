@@ -1,6 +1,5 @@
 <template>
-	<div :disabled="!currentChannel">
-		message history
+	<div>
 		<div v-for="message in messages">
 			{{ message.username }}: {{ message.text }}
 		</div>
@@ -51,5 +50,7 @@
 </script>
 
 <style scoped>
-
+	#message-history {
+		padding: 5px 30px;
+	}
 </style>

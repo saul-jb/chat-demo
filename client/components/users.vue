@@ -1,14 +1,15 @@
 <template>
 	<div>
-		Users list
+		Users:
 		<div v-for="user in users">
-			{{ user }}
+			<User :user="user" />
 		</div>
 	</div>
 </template>
 
 <script>
 	import {mapState, mapActions} from "vuex";
+	import User from "./user";
 
 	export default {
 		data () {
@@ -33,6 +34,10 @@
 
 		methods: {
 			...mapActions("user", ["getAccounts"])
+		},
+
+		components: {
+			User
 		}
 	};
 </script>

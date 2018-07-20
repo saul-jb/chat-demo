@@ -1,11 +1,11 @@
 <template>
 	<div class="chat-page">
-		<Channels id="channels" />
+		<Channels class="blue-border" id="channels" />
 		<div id="message">
 			<MessageHistory id="message-history" />
 			<MessageBox id="message-box" />
 		</div>
-		<Users id="users" />
+		<Users class="blue-border" id="users" />
 	</div>
 </template>
 
@@ -25,15 +25,21 @@
 	};
 </script>
 
+<style>
+</style>
+
 <style scoped>
 	.chat-page {
 		display: flex;
 		height: 100%;
+		background-color: #cce6ff;
+	}
+
+	.blue-border {
+		border: 1px solid #3399ff;
 	}
 
 	#channels {
-		background-color: red;
-
 		width: 10%;
 		height: 100%;
 
@@ -42,8 +48,6 @@
 	}
 
 	#users {
-		background-color: blue;
-
 		width: 10%;
 		height: 100%;
 
@@ -56,16 +60,13 @@
 	}
 
 	#message-history {
-		background-color: yellow;
-
 		width: 100%;
-		height: 80%;
+		height: 90%;
 	}
 
 	#message-box {
-		background-color: green;
-
 		width: 100%;
-		height: 20%;
+		height: 10%;
+		display: flex;
 	}
 </style>

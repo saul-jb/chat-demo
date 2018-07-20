@@ -6,7 +6,7 @@ module.exports = function (app) {
 	const mongooseClient = app.get("mongooseClient");
 	const { Schema } = mongooseClient;
 	const channels = new Schema({
-		title: { type: String, required: true, unique: true },
+		title: { type: String, required: true, unique: true, maxlength: 10 },
 		admins: [{ type: Schema.Types.ObjectId, ref: "users", required: true }],
 		users: [{ type: Schema.Types.ObjectId, ref: "users" }]
 	}, {

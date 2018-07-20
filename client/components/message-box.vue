@@ -1,8 +1,6 @@
 <template>
 	<div>
-		message box
-		<textarea v-model="text" />
-		<button @click.prevent="send" :disabled="!currentChannel">Send</button>
+		<textarea @keydown.enter="send" v-model="text" /><button @click.prevent="send" :disabled="!currentChannel">Send</button>
 	</div>
 </template>
 
@@ -40,5 +38,14 @@
 </script>
 
 <style scoped>
+	textarea {
+		resize: none;
+		width:90%;
+		height: 98%;
+	}
 
+	button {
+		width:10%;
+		height: 98%;
+	}
 </style>
