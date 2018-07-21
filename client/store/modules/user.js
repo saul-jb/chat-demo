@@ -16,15 +16,15 @@ export default {
 	},
 
 	actions: {
-		createAccount ({commit}, {username, password, email}) {
+		createAccount ({commit, dispatch}, {username, password, email}) {
 			return new Promise((resolve, reject) => {
 				userService.create({
 					email,
 					username,
 					password
 				}).then(res => {
-					commit("setUserDetails", res);
-
+					return dispatch("signIn", {email, password});
+				}).then(res => {
 					resolve(res);
 				}).catch(err => {
 					reject(err);
