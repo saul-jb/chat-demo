@@ -37,7 +37,7 @@ export default {
 		},
 
 		joinChannel ({commit, dispatch, rootState}, channelId) {
-			channelService.patch(channelId, {$push: {users: rootState.user.id}});
+			return channelService.patch(channelId, {$push: {users: rootState.user.id}});
 		}
 	},
 
