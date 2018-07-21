@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div v-for="channel in channels">
-			<Channel :channel="channel" @selectedChannel="joinChannel" />
+			<Channel :channel="channel" @selectedChannel="addChannel" />
 		</div>
 	</div>
 </template>
@@ -36,11 +36,12 @@
 		},
 
 		methods: {
-			joinChannel (channel) {
+			addChannel (channel) {
 				console.log("CHANNEL: ", channel);
+				this.joinChannel(channel._id);
 			},
 
-			...mapActions("channels", ["getChannels"])
+			...mapActions("channels", ["getChannels", "joinChannel"])
 		},
 
 		components: {

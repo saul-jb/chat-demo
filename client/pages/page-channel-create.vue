@@ -28,7 +28,7 @@
 		methods: {
 			newChannel () {
 				this.createChannel({title: this.name, userId: this.userId}).then(channel => {
-					return this.getChannels({admins: this.userId});
+					// return this.getChannels({admins: this.userId});
 				}).catch(err => {
 					console.error(err);
 				});

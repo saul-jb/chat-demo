@@ -30,34 +30,14 @@ export default {
 		},
 
 		createChannel ({commit}, {title, userId}) {
-			return new Promise((resolve, reject) => {
-				channelService.create({
-					title,
-					admins: [userId]
-				}).then(channel => {
-					resolve(channel);
-				}).catch(err => {
-					reject(err);
-				});
+			return channelService.create({
+				title,
+				admins: [userId]
 			});
 		},
 
-		joinChannel ({commit, dispatch}, channelId) {
-			return new Promise((resolve, reject) => {
-				// This handles the logic for a user joining a channel
-				// Like call addChannelToUser
-				dispatch("getChannels", {
-					criteria: {
-						_id: channelId
-					},
-					update: false
-				}).then(res => {
-					console.log(res);
-					// dispatch("users/addChannelToUser", {}, {root: true});
-				}).catch(err => {
-					reject(err);
-				});
-			});
+		joinChannel ({commit, dispatch, rootState}, channelId) {
+			channelService.patch(channelId, {$push: {users: rootState.user.id}});
 		}
 	},
 

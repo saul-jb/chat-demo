@@ -32,7 +32,10 @@
 		created () {
 			this.getChannels({
 				criteria: {
-					admins: this.userId
+					$or: [
+						{admins: this.userId},
+						{users: this.userId}
+					]
 				},
 				update: true
 			}).catch(err => {
