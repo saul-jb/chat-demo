@@ -1,42 +1,18 @@
 <template>
 	<div id="app">
-		<nav>
-			<ul v-if="id">
-				<li>
-					<router-link :to="{ name: 'Home', params: {} }">Home</router-link>
-				</li>
-				<li>
-					<router-link :to="{ name: 'Chat', params: {} }">Chat</router-link>
-				</li>
-				<li>
-					<router-link :to="{ name: 'SignOut', params: {} }">Sign Out</router-link>
-				</li>
-			</ul>
-			<ul v-else>
-				<li>
-					<router-link :to="{ name: 'Home', params: {} }">Home</router-link>
-				</li>
-				<li>
-					<router-link :to="{ name: 'SignIn', params: {} }">Sign In</router-link>
-				</li>
-				<li>
-					<router-link :to="{ name: 'Register', params: {} }">Register</router-link>
-				</li>
-			</ul>
-		</nav>
-
-		<main>
+		<TheNavBar />
+		<main class="main">
 			<router-view></router-view>
 		</main>
 	</div>
 </template>
 
 <script>
-	import {mapState} from "vuex";
+	import TheNavBar from "@/components/the-nav-bar";
 
 	export default {
-		computed: {
-			...mapState("user", ["id"])
+		components: {
+			TheNavBar
 		}
 	};
 </script>
@@ -60,15 +36,7 @@
 		outline: 0;
 	}
 
-	/* Pages */
-
-	/* Content */
-	main {
-		padding: 0px 10%;
-
-		height: calc(100% - 30px);
-	}
-
+	/* Main Content / Pages */
 	.page {
 		background-color: #cce6ff;
 
@@ -76,54 +44,57 @@
 
 		padding: 4% 8%;
 	}
+
+	.flex-center {
+		display: flex;
+		align-items: center;
+	}
+
+	/* Forms */
+	.form-main {
+		width: 60%;
+		max-width: 400px;
+
+		margin: auto;
+
+		display: flex;
+		flex-direction: column;
+	}
+
+	.form-heading {
+		text-align: center;
+	}
+
+	.form-label {
+		align-items: center;
+
+		width: 100%;
+
+		padding: 8px 0;
+	}
+
+	.error {
+		border: 1px solid red;
+		padding: 10px;
+
+		text-align: center;
+
+		background-color: #ff9999;
+	}
+
+	.form-input {
+		width: 100%;
+	}
+
+	.form-button {
+		margin-top: 10px;
+	}
 </style>
 
 <style scoped>
-	/* Navigation */
-	nav {
-		display: flex;
+	.main {
+		padding: 0px 10%;
 
-		width:100%;
-		height: 30px;
-
-		background-color: #3399ff;
-	}
-
-	ul {
-		list-style: none;
-
-		width:100%;
-
-		margin: 0;
-    	padding-left:0;
-
-		display: flex;
-	}
-
-	li {
-		width: 20%;
-
-		margin: 0 auto;
-
-		display: flex;
-		align-items: center;
-	}
-
-	a {
-		height: 100%;
-		width: 100%;
-
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		text-decoration: none;
-		background-color: #0066cc;
-		color: white;
-		font-weight: bold;
-	}
-
-	a:hover {
-		background-color: #0080ff;
+		height: calc(100% - 30px);
 	}
 </style>
