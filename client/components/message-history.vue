@@ -15,8 +15,10 @@
 		},
 
 		computed: {
-			...mapState("channels", ["currentChannel"]),
-			...mapState("messages", ["messages"])
+			...mapState({
+				currentChannel: "channels/currentChannel",
+				messages: "messages/messages"
+			})
 		},
 
 		watch: {
@@ -40,8 +42,10 @@
 
 		methods: {
 			...mapActions("messages", ["getMessages", "startListening"]),
-			...mapMutations("channels", ["addUnreadMessage"]),
-			...mapMutations("messages", ["setMessages"])
+			...mapMutations({
+				addUnreadMessage: "channels/addUnreadMessage",
+				setMessages: "messages/setMessages"
+			})
 		}
 	};
 </script>

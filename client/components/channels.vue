@@ -6,37 +6,21 @@
 
 		<button class="pad-top" @click="newChannel">New Channel</button>
 		<button @click="viewChannels">View Channels</button>
-		<button class="pad-top" @click="leaveChannel" :disabled="!this.currentChannel">{{ isAdmin ? "Delete Channel" : "Leave Channel" }}</button>
+		<ChannelLeaveButton />
 	</div>
 </template>
 
 <script>
 	import {mapActions, mapState, mapMutations} from "vuex";
 	import Channel from "./channel";
+	import ChannelLeaveButton from "./channel-leave-button";
 
 	export default {
-		data () {
-			return {
-			};
-		},
-
 		computed: {
-			...mapState("user", {
-				userId: "id"
-			}),
-
-			...mapState("channels", {
-				userChannels: "channels",
-				currentChannel: "currentChannel"
-			}),
-
-			isAdmin () {
-				if (this.currentChannel) {
-					return this.currentChannel.admins.includes(this.userId);
-				}
-
-				return false;
-			}
+			...mapState({
+				userId: state => state.user.id,
+				userChannels: state => state.channels.channels
+			})
 		},
 
 		created () {
@@ -56,26 +40,8 @@
 				this.$router.push({name: "ViewChannels"});
 			},
 
-			leaveChannel () {
-				if (this.currentChannel) {
-					if (this.isAdmin) {
-						console.log("DELETEING CHANNEL")
-						this.deleteChannel(this.currentChannel._id);
-					} else {
-						this.removeChannel(this.currentChannel._id).then(() => {
-							console.log("LEAVING CHANNEL", this.currentChannel)
-							return Promise.all([
-								this.loadChannels(),
-								this.setCurrentChannel(null)
-							]);
-						}).catch(err => {
-							console.error(err);
-						});
-					}
-				}
-			},
-
 			loadChannels () {
+				console.log(this.userId);
 				this.getChannels({
 					criteria: {
 						$or: [
@@ -89,12 +55,13 @@
 				});
 			},
 
-			...mapActions("channels", ["getChannels", "removeChannel", "deleteChannel"]),
+			...mapActions("channels", ["getChannels"]),
 			...mapMutations("channels", ["setCurrentChannel"])
 		},
 
 		components: {
-			Channel
+			Channel,
+			ChannelLeaveButton
 		}
 	};
 </script>

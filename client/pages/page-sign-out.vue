@@ -13,9 +13,7 @@
 		},
 
 		methods: {
-			...mapActions("user", [
-				"signOut"
-			])
+			...mapActions("user", ["signOut"])
 		}
 	};
 </script>

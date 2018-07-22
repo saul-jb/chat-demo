@@ -15,8 +15,10 @@
 		},
 
 		computed: {
-			...mapState("channels", ["currentChannel"]),
-			...mapState("user", ["id"])
+			...mapState({
+				currentChannel: state => state.channels.currentChannel,
+				id: state => state.user.id
+			})
 		},
 
 		methods: {
