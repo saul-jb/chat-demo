@@ -4,8 +4,9 @@
 			<Channel :channel="channel" :unread="channel.unread" @selectedChannel="selectedChannel" />
 		</div>
 
-		<button @click="newChannel">New Channel</button>
+		<button class="pad-top" @click="newChannel">New Channel</button>
 		<button @click="viewChannels">View Channels</button>
+		<button class="pad-top" @click="leaveChannel" :disabled="!this.currentChannel">{{ isAdmin ? "Delete Channel" : "Leave Channel" }}</button>
 	</div>
 </template>
 
@@ -25,22 +26,21 @@
 			}),
 
 			...mapState("channels", {
-				userChannels: "channels"
-			})
+				userChannels: "channels",
+				currentChannel: "currentChannel"
+			}),
+
+			isAdmin () {
+				if (this.currentChannel) {
+					return this.currentChannel.admins.includes(this.userId);
+				}
+
+				return false;
+			}
 		},
 
 		created () {
-			this.getChannels({
-				criteria: {
-					$or: [
-						{admins: this.userId},
-						{users: this.userId}
-					]
-				},
-				update: true
-			}).catch(err => {
-				console.error(err);
-			});
+			this.loadChannels();
 		},
 
 		methods: {
@@ -56,7 +56,40 @@
 				this.$router.push({name: "ViewChannels"});
 			},
 
-			...mapActions("channels", ["getChannels"]),
+			leaveChannel () {
+				if (this.currentChannel) {
+					if (this.isAdmin) {
+						console.log("DELETEING CHANNEL")
+						this.deleteChannel(this.currentChannel._id);
+					} else {
+						this.removeChannel(this.currentChannel._id).then(() => {
+							console.log("LEAVING CHANNEL", this.currentChannel)
+							return Promise.all([
+								this.loadChannels(),
+								this.setCurrentChannel(null)
+							]);
+						}).catch(err => {
+							console.error(err);
+						});
+					}
+				}
+			},
+
+			loadChannels () {
+				this.getChannels({
+					criteria: {
+						$or: [
+							{admins: this.userId},
+							{users: this.userId}
+						]
+					},
+					update: true
+				}).catch(err => {
+					console.error(err);
+				});
+			},
+
+			...mapActions("channels", ["getChannels", "removeChannel", "deleteChannel"]),
 			...mapMutations("channels", ["setCurrentChannel"])
 		},
 
@@ -69,5 +102,9 @@
 <style scoped>
 	button {
 		width: 100%;
+	}
+
+	.pad-top {
+		margin-top: 10px;
 	}
 </style>

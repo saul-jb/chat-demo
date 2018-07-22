@@ -4,6 +4,25 @@ const addChannelToUser = context => {
 	return context;
 };
 
+const removeChannelFromAllUsers = context => {
+	const allUsers = [...context.result.users, ...context.result.admins];
+	const promises = [];
+
+	allUsers.forEach(user => {
+		promises.push(context.app.service("users").patch(user, {
+			$pull: {
+				channels: context.result._id
+			}
+		}));
+	});
+
+	return Promise.all(promises).then(() => {
+		return context;
+	}).catch(err => {
+		console.error(err);
+	});
+};
+
 module.exports = {
 	before: {
 		all: [],
@@ -21,8 +40,8 @@ module.exports = {
 		get: [],
 		create: [addChannelToUser],
 		update: [],
-		patch: [addChannelToUser],
-		remove: []
+		patch: [],
+		remove: [removeChannelFromAllUsers]
 	},
 
 	error: {

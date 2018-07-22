@@ -24,11 +24,15 @@
 
 		watch: {
 			currentChannel (newChannel, oldChannel) {
-				this.getAccounts({channels: newChannel._id}).then(res => {
-					this.users = res.data;
-				}).catch(err => {
-					console.error(err);
-				});
+				if (newChannel) {
+					this.getAccounts({channels: newChannel._id}).then(res => {
+						this.users = res.data;
+					}).catch(err => {
+						console.error(err);
+					});
+				} else {
+					this.users = [];
+				}
 			}
 		},
 

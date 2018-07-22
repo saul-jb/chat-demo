@@ -1,12 +1,14 @@
 <template>
 	<div>
 		<button @click="selectChannel">
-			{{ channel.title }} <span v-if="unread">({{ unread }})</span>
+			{{ channel.title }} <span v-if="hasUnread">({{ unread }})</span>
 		</button>
 	</div>
 </template>
 
 <script>
+	import {mapState} from "vuex";
+
 	export default {
 		props: {
 			channel: {
@@ -42,8 +44,18 @@
 		},
 
 		computed: {
+			...mapState("channels", ["currentChannel"]),
+
 			title () {
 				return this.channel.title;
+			},
+
+			hasUnread () {
+				if (!this.currentChannel || this.channel._id !== this.currentChannel._id) {
+					return !!this.unread;
+				}
+
+				return false;
 			}
 		},
 

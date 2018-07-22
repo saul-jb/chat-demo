@@ -59,7 +59,11 @@ export default {
 		},
 
 		addChannelToUser ({commit, state}, channelId) {
-			userService.patch(state.id, {$push: {channels: channelId}});
+			return userService.patch(state.id, {$push: {channels: channelId}});
+		},
+
+		removeChannelFromUser ({commit, state}, channelId) {
+			return userService.patch(state.id, {$pull: {channels: channelId}});
 		}
 	},
 

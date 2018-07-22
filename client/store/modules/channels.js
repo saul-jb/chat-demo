@@ -36,8 +36,22 @@ export default {
 			});
 		},
 
-		joinChannel ({commit, dispatch, rootState}, channelId) {
-			return channelService.patch(channelId, {$push: {users: rootState.user.id}});
+		joinChannel ({dispatch, rootState}, channelId) {
+			return Promise.all([
+				channelService.patch(channelId, {$push: {users: rootState.user.id}}),
+				dispatch("user/addChannelToUser", channelId, {root: true})
+			]);
+		},
+
+		removeChannel ({dispatch, rootState}, channelId) {
+			return Promise.all([
+				channelService.patch(channelId, {$pull: {users: rootState.user.id}}),
+				dispatch("user/removeChannelFromUser", channelId, {root: true})
+			]);
+		},
+
+		deleteChannel ({state}, channelId) {
+			return channelService.remove(channelId);
 		}
 	},
 
@@ -50,7 +64,10 @@ export default {
 		},
 
 		setCurrentChannel (state, channel) {
-			channel.unread = 0;
+			if (channel) {
+				channel.unread = 0;
+			}
+
 			state.currentChannel = channel;
 		},
 

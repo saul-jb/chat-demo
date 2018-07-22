@@ -6,6 +6,8 @@ export default {
 	namespaced: true,
 
 	state: {
+		listening: false,
+		messages: []
 	},
 
 	getters: {
@@ -27,12 +29,36 @@ export default {
 			});
 		},
 
+		startListening ({commit, state, rootState}) {
+			if (!state.listening) {
+				commit("setListening");
+
+				client.service("messages").on("created", message => {
+					if (rootState.channels.currentChannel && message.channel === rootState.channels.currentChannel._id) {
+						commit("addMessage", message);
+					} else {
+						commit("channels/addUnreadMessage", message.channel, {root: true});
+					}
+				});
+			}
+		},
+
 		getMessages ({commit}, criteria) {
 			return messagesService.find({query: criteria});
 		}
 	},
 
 	mutations: {
+		setListening (state) {
+			state.listening = true;
+		},
 
+		setMessages (state, messages) {
+			state.messages = messages;
+		},
+
+		addMessage (state, message) {
+			state.messages.push(message);
+		}
 	}
 };
