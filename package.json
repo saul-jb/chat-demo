@@ -79,6 +79,7 @@
 		"request": "^2.87.0",
 		"request-promise": "^4.2.2",
 		"rimraf": "^2.6.2",
+		"uglifyjs-webpack-plugin": "^1.2.7",
 		"vue-loader": "^15.2.6",
 		"vue-template-compiler": "^2.4.4",
 		"webpack": "^4.16.1",

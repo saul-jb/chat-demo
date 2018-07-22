@@ -7,6 +7,7 @@
 </template>
 
 <script>
+	import Vue from "vue";
 	import {mapState, mapActions, mapMutations} from "vuex";
 
 	export default {
@@ -16,8 +17,8 @@
 
 		computed: {
 			...mapState({
-				currentChannel: "channels/currentChannel",
-				messages: "messages/messages"
+				currentChannel: state => state.channels.currentChannel,
+				messages: state => state.messages.messages
 			})
 		},
 
@@ -37,10 +38,20 @@
 				} else {
 					this.setMessages([]);
 				}
+			},
+
+			messages () {
+				Vue.nextTick().then(() => {
+					this.scrollToBottom();
+				});
 			}
 		},
 
 		methods: {
+			scrollToBottom () {
+				this.$el.scrollTop = this.$el.scrollHeight;
+			},
+
 			...mapActions("messages", ["getMessages", "startListening"]),
 			...mapMutations({
 				addUnreadMessage: "channels/addUnreadMessage",
