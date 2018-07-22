@@ -25,8 +25,8 @@
 					text: this.text,
 					userId: this.id,
 					channelId: this.currentChannel._id
-				}).then(res => {
-					console.log(res);
+				}).then(() => {
+					this.text = "";
 				}).catch(err => {
 					console.error(err);
 				});

@@ -3,8 +3,8 @@
   "port": 3030,
   "public": "../public/",
   "paginate": {
-    "default": 100,
-    "max": 500
+    "default": 30,
+    "max": 50
   },
   "mongodb": "mongodb://localhost:27017/chat_demo",
   "authentication": {

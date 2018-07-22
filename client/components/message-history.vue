@@ -34,8 +34,13 @@
 		watch: {
 			currentChannel (newChannel, oldChannel) {
 				console.log(newChannel._id);
-				this.getMessages({channel: newChannel._id}).then(res => {
-					this.messages = res.data;
+				this.getMessages({
+					channel: newChannel._id,
+					$sort: {
+						createdAt: -1
+					}
+				}).then(res => {
+					this.messages = res.data.reverse();
 				}).catch(err => {
 					console.error(err);
 				});
