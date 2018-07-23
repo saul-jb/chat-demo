@@ -84,5 +84,6 @@
 	#message-history {
 		padding: 5px 30px;
 		overflow-y: auto;
+		overflow-wrap: break-word;
 	}
 </style>

@@ -93,8 +93,6 @@
 
 <style scoped>
 	.main {
-		padding: 0px 10%;
-
 		height: calc(100% - 30px);
 	}
 </style>

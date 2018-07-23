@@ -1,6 +1,14 @@
 <template>
-	<div>
-		<textarea @keydown.enter="send" v-model="text" /><button @click.prevent="send" :disabled="!currentChannel">Send</button>
+	<div id="message-box">
+		<textarea-autosize
+			class="input-field"
+			placeholder="Type something here..."
+			v-model="text"
+			:min-height="40"
+			:max-height="100"
+			@keydown.enter="send"
+		></textarea-autosize>
+		<button class="send-button" @click.prevent="send" :disabled="!currentChannel">Send</button>
 	</div>
 </template>
 
@@ -42,14 +50,24 @@
 </script>
 
 <style scoped>
-	textarea {
-		resize: none;
-		width:90%;
-		height: 98%;
+	#message-box {
+		display: flex;
 	}
 
-	button {
-		width:10%;
-		height: 98%;
+	.input-field {
+		flex: 1;
+
+		resize: none;
+
+		padding: 0;
+		margin: 0;
+	}
+
+	.send-button {
+		max-height: 40px;
+		height: 40px;
+		width: 40px;
+
+		margin-top: auto;
 	}
 </style>

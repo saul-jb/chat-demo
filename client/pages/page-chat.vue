@@ -1,14 +1,12 @@
 <template>
 	<div class="chat-page">
 		<Channels class="blue-border" id="channels" />
-		<div id="message">
+		<div class="message-container">
 			<MessageHistory ref="messageHistory" id="message-history" />
 			<MessageBox id="message-box" />
 		</div>
-		<div class="right">
-			<Users class="blue-border" id="users" />
-			<ChannelOptions class="options-box" :parentRefs="this.$refs" />
-		</div>
+		<Users class="blue-border" id="users" />
+		<!-- <ChannelOptions class="grid-item options-box" :parentRefs="this.$refs" /> -->
 	</div>
 </template>
 
@@ -35,8 +33,12 @@
 
 <style scoped>
 	.chat-page {
-		display: flex;
+		display: grid;
+		grid-template-columns: repeat(7, minmax(80px, 1fr));
+		grid-template-rows: repeat(1, minmax(1px, 1fr));
+
 		height: 100%;
+
 		background-color: #cce6ff;
 	}
 
@@ -45,41 +47,47 @@
 	}
 
 	#channels {
-		width: 10%;
-		height: 100%;
-
 		overflow-y: auto;
 		overflow-x: hidden;
+
+		grid-row-start: 1;
+		grid-row-end: 1;
+		grid-column-start: 1;
+		grid-column-end: 2;
+
+		background-color: red;
 	}
 
-	.right {
-		width: 10%;
-		height: 100%;
-	}
+	.message-container {
+		grid-row-start: 1;
+		grid-row-end: 1;
+		grid-column-start: 2;
+		grid-column-end: 7;
 
-	#users {
-		height: 90%;
-
-		overflow-y: auto;
-		overflow-x: hidden;
-	}
-
-	#message {
-		width: 80%;
+  display: flex;
+  flex-direction: column;
 	}
 
 	#message-history {
-		width: 100%;
-		height: 90%;
+		background-color: green;
+		height: 100%;
 	}
 
 	#message-box {
-		width: 100%;
-		height: 10%;
-		display: flex;
+  		flex: 1;
+		height: 40px;
 	}
 
-	.options-box {
-		height: 10%;
+	#users {
+		overflow-y: auto;
+		overflow-x: hidden;
+
+		grid-row-start: 1;
+		grid-row-end: 1;
+		grid-column-start: 7;
+		grid-column-end: 8;
+
+		background-color: yellow;
 	}
+
 </style>
