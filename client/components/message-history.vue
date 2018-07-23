@@ -1,8 +1,5 @@
 <template>
 	<div @scroll.passive="onScroll">
-		<div class="jump-button" @click="scrollToBottom">
-			Jump To Bottom
-		</div>
 		<div v-for="message in messages">
 			{{ message.username }}: {{ message.text }}
 		</div>
@@ -87,11 +84,5 @@
 	#message-history {
 		padding: 5px 30px;
 		overflow-y: auto;
-	}
-
-	.jump-button {
-		position: absolute;
-		right: 20%;
-		cursor: pointer;
 	}
 </style>

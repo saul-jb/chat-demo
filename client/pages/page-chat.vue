@@ -2,15 +2,19 @@
 	<div class="chat-page">
 		<Channels class="blue-border" id="channels" />
 		<div id="message">
-			<MessageHistory id="message-history" />
+			<MessageHistory ref="messageHistory" id="message-history" />
 			<MessageBox id="message-box" />
 		</div>
-		<Users class="blue-border" id="users" />
+		<div class="right">
+			<Users class="blue-border" id="users" />
+			<ChannelOptions class="options-box" :parentRefs="this.$refs" />
+		</div>
 	</div>
 </template>
 
 <script>
 	import Channels from "@/components/channels";
+	import ChannelOptions from "@/components/channel-options";
 	import MessageBox from "@/components/message-box";
 	import MessageHistory from "@/components/message-history";
 	import Users from "@/components/users";
@@ -18,6 +22,7 @@
 	export default {
 		components: {
 			Channels,
+			ChannelOptions,
 			MessageBox,
 			Users,
 			MessageHistory
@@ -47,9 +52,13 @@
 		overflow-x: hidden;
 	}
 
-	#users {
+	.right {
 		width: 10%;
 		height: 100%;
+	}
+
+	#users {
+		height: 90%;
 
 		overflow-y: auto;
 		overflow-x: hidden;
@@ -68,5 +77,9 @@
 		width: 100%;
 		height: 10%;
 		display: flex;
+	}
+
+	.options-box {
+		height: 10%;
 	}
 </style>
