@@ -59,6 +59,7 @@
 
 	.nav-item {
 		width: 20%;
+		min-width: 80px;
 
 		margin: 0 auto;
 

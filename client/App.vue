@@ -116,6 +116,13 @@
 		background-color: #0080ff;
 		color: white;
 	}
+
+	/* Mobile only */
+	@media only screen and (max-width: 800px) {
+		.page {
+			padding: 2% 4%;
+		}
+	}
 </style>
 
 <style scoped>

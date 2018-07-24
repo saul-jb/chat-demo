@@ -80,7 +80,7 @@
 	.channel-grid .channel-button {
 		height: 100px;
 		max-width: 300px;
-		min-width: 150px;
+		min-width: 200px;
 	}
 </style>
 
@@ -101,5 +101,13 @@
 		grid-row-gap: 50px;
 
 		justify-items: center;
+	}
+
+	/* Mobile only */
+	@media only screen and (max-width: 800px) {
+		.channel-grid {
+			grid-column-gap: 10px;
+			grid-row-gap: 10px;
+		}
 	}
 </style>

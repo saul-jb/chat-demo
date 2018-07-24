@@ -49,6 +49,6 @@
 	}
 
 	.home-content {
-		width: 60%;
+		width: 100%;
 	}
 </style>

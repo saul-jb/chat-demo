@@ -39,4 +39,10 @@
 
 		color: #0066cc;
 	}
+
+	@media only screen and (max-width: 800px) {
+		.options-container {
+			height: 50px;
+		}
+	}
 </style>

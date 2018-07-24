@@ -1,7 +1,7 @@
 <template>
 	<div class="page flex-center">
 		<form class="form-main">
-			<h2 class="form-heading">Create A Channel</h2>
+			<h2 class="form-heading">Create Channel</h2>
 			<div class="error" v-if="error">
 				{{error}}
 			</div>
