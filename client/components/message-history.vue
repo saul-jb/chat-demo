@@ -15,6 +15,11 @@
 			this.startListening();
 		},
 
+		mounted () {
+			// Ensure that we are at the bottom when navigating away then back
+			this.scrollToBottom();
+		},
+
 		computed: {
 			...mapState({
 				currentChannel: state => state.channels.currentChannel,
@@ -24,6 +29,7 @@
 
 		watch: {
 			currentChannel (newChannel, oldChannel) {
+				console.log("TEST");
 				this.setMessages([]);
 
 				if (newChannel) {
@@ -83,7 +89,7 @@
 <style scoped>
 	.message-history {
 		padding: 5px 30px;
-		overflow-y: auto;
 		overflow-wrap: break-word;
+		overflow-y: auto;
 	}
 </style>

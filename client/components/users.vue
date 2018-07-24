@@ -18,6 +18,12 @@
 			};
 		},
 
+		created () {
+			if (this.currentChannel) {
+				this.loadUsers(this.currentChannel._id);
+			}
+		},
+
 		computed: {
 			...mapState("channels", ["currentChannel"])
 		},
@@ -25,11 +31,7 @@
 		watch: {
 			currentChannel (newChannel, oldChannel) {
 				if (newChannel) {
-					this.getAccounts({channels: newChannel._id}).then(res => {
-						this.users = res.data;
-					}).catch(err => {
-						console.error(err);
-					});
+					this.loadUsers(newChannel._id);
 				} else {
 					this.users = [];
 				}
@@ -37,6 +39,14 @@
 		},
 
 		methods: {
+			loadUsers (channnelId) {
+				this.getAccounts({channels: channnelId}).then(res => {
+					this.users = res.data;
+				}).catch(err => {
+					console.error(err);
+				});
+			},
+
 			...mapActions("user", ["getAccounts"])
 		},
 

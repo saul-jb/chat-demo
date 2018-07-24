@@ -1,7 +1,7 @@
 <template>
 	<div class="channels">
 		<div v-for="channel in userChannels">
-			<Channel :channel="channel" :unread="channel.unread" @selectedChannel="selectedChannel" />
+			<Channel :class="{'current-channel': (currentChannel._id === channel._id)}" :channel="channel" :unread="channel.unread" @selectedChannel="selectedChannel" />
 		</div>
 
 		<div class="pad-top channel-button" @click="newChannel">New Channel</div>
@@ -19,7 +19,8 @@
 		computed: {
 			...mapState({
 				userId: state => state.user.id,
-				userChannels: state => state.channels.channels
+				userChannels: state => state.channels.channels,
+				currentChannel: state => state.channels.currentChannel
 			})
 		},
 
@@ -95,7 +96,7 @@
 		transition: background-color 0.2s ease-in-out, color 0.1s ease-in-out;
 	}
 
-	.channel-button:hover {
+	.channel-button:hover, .current-channel > .channel-button {
 		background-color: #0080ff;
 		color: white;
 	}

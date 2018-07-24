@@ -103,9 +103,7 @@
 		display: grid;
 		grid-template-columns: 20% 60% 20%;
 		grid-template-rows: 100%;
-		grid-template-areas:
-			"channels messages users"
-			"channels messages users";
+		grid-template-areas: "channels messages users";
 
 		height: 100%;
 
