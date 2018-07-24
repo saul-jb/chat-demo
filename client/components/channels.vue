@@ -1,7 +1,13 @@
 <template>
 	<div class="channels">
 		<div v-for="channel in userChannels">
-			<Channel :class="{'current-channel': (currentChannel._id === channel._id)}" :channel="channel" :unread="channel.unread" @selectedChannel="selectedChannel" />
+			<Channel
+				:class="{'current-channel': (currentChannel && currentChannel._id === channel._id)}"
+				:channel="channel"
+				@selectedChannel="selectedChannel"
+			>
+				<span v-if="channel.unread">({{ unread }})</span>
+			</Channel>
 		</div>
 
 		<div class="pad-top channel-button" @click="newChannel">New Channel</div>

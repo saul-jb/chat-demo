@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="channel-button" @click="selectChannel">
-			{{ channel.title }} <span v-if="hasUnread">({{ unread }})</span>
+			{{ channel.title }}
 			<slot></slot>
 		</div>
 	</div>
@@ -28,19 +28,6 @@
 
 					return true;
 				}
-			},
-
-			unread: {
-				type: Number,
-				required: false,
-				validator: value => {
-					if (value < 0) {
-						console.error("Error, Unread count cannot be a negative number.");
-						return false;
-					}
-
-					return true;
-				}
 			}
 		},
 
@@ -49,14 +36,6 @@
 
 			title () {
 				return this.channel.title;
-			},
-
-			hasUnread () {
-				if (!this.currentChannel || this.channel._id !== this.currentChannel._id) {
-					return !!this.unread;
-				}
-
-				return false;
 			}
 		},
 

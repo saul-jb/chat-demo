@@ -29,7 +29,6 @@
 
 		watch: {
 			currentChannel (newChannel, oldChannel) {
-				console.log("TEST");
 				this.setMessages([]);
 
 				if (newChannel) {
