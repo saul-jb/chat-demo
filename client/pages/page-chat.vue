@@ -2,11 +2,12 @@
 	<div class="chat-page">
 		<Channels class="blue-border" id="channels" />
 		<div class="message-container">
+			<ChannelOptions :parentRefs="this.$refs" />
 			<MessageHistory ref="messageHistory" id="message-history" />
-			<MessageBox id="message-box" />
+			<MessageBox id="message-box" :parentRefs="this.$refs" />
 		</div>
 		<Users class="blue-border" id="users" />
-		<!-- <ChannelOptions class="grid-item options-box" :parentRefs="this.$refs" /> -->
+		<!-- < -->
 	</div>
 </template>
 
@@ -54,8 +55,6 @@
 		grid-row-end: 1;
 		grid-column-start: 1;
 		grid-column-end: 2;
-
-		background-color: red;
 	}
 
 	.message-container {
@@ -64,12 +63,11 @@
 		grid-column-start: 2;
 		grid-column-end: 7;
 
-  display: flex;
-  flex-direction: column;
+		display: flex;
+		flex-direction: column;
 	}
 
 	#message-history {
-		background-color: green;
 		height: 100%;
 	}
 
@@ -86,8 +84,6 @@
 		grid-row-end: 1;
 		grid-column-start: 7;
 		grid-column-end: 8;
-
-		background-color: yellow;
 	}
 
 </style>

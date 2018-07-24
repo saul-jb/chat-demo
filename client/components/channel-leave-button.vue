@@ -1,5 +1,5 @@
 <template>
-	<button class="pad-top" @click="leaveChannel" :disabled="!this.currentChannel">{{ isAdmin ? "Delete Channel" : "Leave Channel" }}</button>
+	<div class="pad-top channel-button" @click="leaveChannel" :disabled="!this.currentChannel">{{ isAdmin ? "Delete Channel" : "Leave Channel" }}</div>
 </template>
 
 <script>

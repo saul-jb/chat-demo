@@ -1,6 +1,6 @@
 <template>
 	<div class="page flex-center">
-		<form class="form-main" @submit.prevent="createAccount">
+		<form class="form-main">
 			<h2 class="form-heading">Register</h2>
 			<div class="error" v-if="error">
 				{{error}}
@@ -17,7 +17,7 @@
 				Email:
 				<input class="form-input" required v-model="email" type="email" id="email" />
 			</label>
-			<button class="form-button">Submit</button>
+			<div @click.prevent="createAccount" class="form-button">Submit</div>
 		</form>
 	</div>
 </template>

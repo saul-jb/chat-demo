@@ -84,10 +84,35 @@
 
 	.form-input {
 		width: 100%;
+
+		background-color: #cce6ff;
+		border: 1px solid #0066cc;
+		color: #0066cc;
+		padding: 8px;
+
+		transition: background-color 0.2s ease-in-out, color 0.1s ease-in-out;
+	}
+
+	.form-input:focus {
+		background-color: #0080ff;
+		color: white;
 	}
 
 	.form-button {
+		border: 1px solid #0066cc;
+		color: #0066cc;
+
 		margin-top: 10px;
+		padding: 8px;
+
+		cursor: pointer;
+
+		transition: background-color 0.2s ease-in-out, color 0.1s ease-in-out;
+	}
+
+	.form-button:hover {
+		background-color: #0080ff;
+		color: white;
 	}
 </style>
 

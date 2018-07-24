@@ -1,7 +1,7 @@
 <template>
 	<div @scroll.passive="onScroll">
 		<div v-for="message in messages">
-			{{ message.username }}: {{ message.text }}
+			{{ message.username }}: <span v-html="message.text">{{ message.text }}</span>
 		</div>
 	</div>
 </template>

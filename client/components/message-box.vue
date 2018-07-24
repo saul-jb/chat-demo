@@ -6,16 +6,23 @@
 			v-model="text"
 			:min-height="40"
 			:max-height="100"
-			@keydown.enter="send"
+			@keydown.exact.enter.prevent.native="send"
 		></textarea-autosize>
-		<button class="send-button" @click.prevent="send" :disabled="!currentChannel">Send</button>
+		<SendButton class="send-button" @clicked="send" />
 	</div>
 </template>
 
 <script>
 	import {mapState, mapActions} from "vuex";
+	import SendButton from "./send-button";
 
 	export default {
+		props: {
+			parentRefs: {
+				required: true
+			}
+		},
+
 		data () {
 			return {
 				text: ""
@@ -30,14 +37,23 @@
 		},
 
 		methods: {
+			scrollToBottom () {
+
+			},
+
 			send () {
 				if (this.currentChannel) {
 					this.createMessage({
-						text: this.text,
+						text: this.text.replace(/\r\n|\r|\n/g, "<br />"),
 						userId: this.id,
 						channelId: this.currentChannel._id
 					}).then(() => {
 						this.text = "";
+
+						// Scroll to the bottom
+						if (this.parentRefs.messageHistory) {
+							this.parentRefs.messageHistory.scrollToBottom();
+						}
 					}).catch(err => {
 						console.error(err);
 					});
@@ -45,6 +61,10 @@
 			},
 
 			...mapActions("messages", ["createMessage"])
+		},
+
+		components: {
+			SendButton
 		}
 	};
 </script>

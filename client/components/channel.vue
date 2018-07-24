@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<button @click="selectChannel">
+		<div class="channel-button" @click="selectChannel">
 			{{ channel.title }} <span v-if="hasUnread">({{ unread }})</span>
-		</button>
+		</div>
 	</div>
 </template>
 

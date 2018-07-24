@@ -1,8 +1,8 @@
 <template>
-	<div>
-		<button class="options-button" @click="scrollToBottom">
+	<div class="options-container">
+		<div class="options-button" @click="scrollToBottom">
 			Jump To Bottom
-		</button>
+		</div>
 	</div>
 </template>
 
@@ -25,8 +25,18 @@
 </script>
 
 <style scoped>
+	.options-container {
+		display: flex;
+	}
+
 	.options-button {
 		cursor: pointer;
-		height: 100%;
+
+		text-align: center;
+
+		margin: auto;
+		padding: 5px;
+
+		color: #0066cc;
 	}
 </style>

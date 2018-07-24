@@ -6,7 +6,7 @@ module.exports = function (app) {
 	const mongooseClient = app.get("mongooseClient");
 	const { Schema } = mongooseClient;
 	const messages = new Schema({
-		text: { type: String, required: true, maxlength: 250 },
+		text: { type: String, required: true, maxlength: 2000 },
 		username: { type: String, required: true },
 		user: { type: Schema.Types.ObjectId, ref: "users", required: true },
 		channel: { type: Schema.Types.ObjectId, ref: "channels", required: true }

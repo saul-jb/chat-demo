@@ -1,6 +1,6 @@
 <template>
 	<div class="page flex-center">
-		<form class="form-main" @submit.prevent="signIn">
+		<form class="form-main">
 			<h2 class="form-heading">Sign In</h2>
 			<div class="error" v-if="error">
 				{{error}}
@@ -13,7 +13,7 @@
 				Password:
 				<input class="form-input" required v-model="password" type="password" id="password" />
 			</label>
-			<button class="form-button">Submit</button>
+			<div @click.prevent="signIn" class="form-button">Submit</div>
 		</form>
 	</div>
 </template>
