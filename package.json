@@ -21,9 +21,6 @@
 		"lint": "eslint --fix server/*",
 		"clean": "rimraf dist"
 	},
-	"directories": {
-		"lib": "server"
-	},
 	"build": {
 		"appId": "your.id",
 		"mac": {

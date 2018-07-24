@@ -1,12 +1,29 @@
 <template>
-	<v-touch class="chat-page" :class="mobileClasses" @swipeleft="onSwipe('right')" @swiperight="onSwipe('left')">
-		<Channels class="blue-border channels" />
-		<div class="message-container">
-			<ChannelOptions :parentRefs="this.$refs" />
-			<MessageHistory ref="messageHistory" class="message-history" />
-			<MessageBox class="message-box" :parentRefs="this.$refs" />
-		</div>
-		<Users class="blue-border users" />
+	<v-touch
+		class="chat-page"
+		:class="mobileClasses"
+		@swipeleft="onSwipe('right')"
+		@swiperight="onSwipe('left')"
+	>
+		<Channels v-show="leftVisible" class="blue-border channels" />
+
+		<ChannelOptions
+			v-show="centerVisible"
+			class="channel-options"
+			:parentRefs="this.$refs"
+		/>
+		<MessageHistory
+			v-show="centerVisible"
+			ref="messageHistory"
+			class="message-history"
+		/>
+		<MessageBox
+			v-show="centerVisible"
+			class="message-box"
+			:parentRefs="this.$refs"
+		/>
+
+		<Users v-show="rightVisible" class="blue-border users" />
 	</v-touch>
 </template>
 
@@ -23,8 +40,9 @@
 		data () {
 			return {
 				mobileClasses: {},
-				leftVisible: false,
-				rightVisible: false
+				leftVisible: true,
+				rightVisible: true,
+				centerVisible: true
 			};
 		},
 
@@ -39,7 +57,10 @@
 		},
 
 		created () {
-			this.leftVisible = !this.isPhone && this.isTablet;
+			if (this.isPhone || this.isTablet) {
+				this.leftVisible = !this.isPhone && this.isTablet;
+				this.rightVisible = false;
+			}
 		},
 
 		methods: {
@@ -60,26 +81,32 @@
 						} else {
 							this.setCenter();
 						}
+
+						// Reset scroll
+						this.$refs.messageHistory.scrollToBottom();
 					}
 				}
 			},
 
 			setLeft () {
 				this.setMobilePageClass("mobile-left");
-				this.rightVisible = false;
 				this.leftVisible = true;
+				this.centerVisible = !this.isPhone;
+				this.rightVisible = false;
 			},
 
 			setCenter () {
 				this.setMobilePageClass("mobile-center");
-				this.rightVisible = false;
 				this.leftVisible = false;
+				this.centerVisible = this.isPhone;
+				this.rightVisible = false;
 			},
 
 			setRight () {
 				this.setMobilePageClass("mobile-right");
-				this.rightVisible = true;
 				this.leftVisible = false;
+				this.centerVisible = !this.isPhone;
+				this.rightVisible = true;
 			}
 		},
 
@@ -102,8 +129,10 @@
 	.chat-page {
 		display: grid;
 		grid-template-columns: 20% 60% 20%;
-		grid-template-rows: 100%;
-		grid-template-areas: "channels messages users";
+		grid-template-rows: 40px, calc(100% - 80px), 40px;
+		grid-template-areas:	"channels	options		users"
+								"channels	messages	users"
+								"channels	input		users";
 
 		height: 100%;
 
@@ -121,20 +150,16 @@
 		grid-area: channels;
 	}
 
-	.message-container {
-		grid-area: messages;
-
-		display: flex;
-		flex-direction: column;
+	.channel-options {
+		grid-area: options;
 	}
 
 	.message-history {
-		height: 100%;
+		grid-area: messages;
 	}
 
 	.message-box {
-  		flex: 1;
-		height: 40px;
+		grid-area: input;
 	}
 
 	.users {
@@ -148,7 +173,9 @@
 	@media only screen and (min-width: 600px) and (max-width: 800px) {
 		.chat-page {
 			grid-template-columns: 20% 80%;
-			grid-template-areas: "channels messages";
+			grid-template-areas:	"channels	options"
+									"channels	messages"
+									"channels	input";
 
 			overflow: hidden;
 		}
@@ -157,7 +184,9 @@
 	@media only screen and (max-width: 600px) {
 		.chat-page {
 			grid-template-columns: 100%;
-			grid-template-areas: "messages";
+			grid-template-areas:	"options"
+									"messages"
+									"input";
 
 			overflow: hidden;
 		}
@@ -167,12 +196,16 @@
 	@media only screen and (min-width: 600px) and (max-width: 800px) {
 		.chat-page.mobile-left {
 			grid-template-columns: 20% 80%;
-			grid-template-areas: "channels messages";
+			grid-template-areas:	"channels	options"
+									"channels	messages"
+									"channels	input";
 		}
 
 		.chat-page.mobile-right {
 			grid-template-columns: 80% 20%;
-			grid-template-areas: "messages users";
+			grid-template-areas:	"options	users"
+									"messages	users"
+									"input		users";
 		}
 	}
 
@@ -182,15 +215,21 @@
 		}
 
 		.chat-page.mobile-left {
-			grid-template-areas: "channels";
+			grid-template-areas:	"channels"
+									"channels"
+									"channels";
 		}
 
 		.chat-page.mobile-center {
-			grid-template-areas: "messages";
+			grid-template-areas:	"options"
+									"messages"
+									"input";
 		}
 
 		.chat-page.mobile-right {
-			grid-template-areas: "users";
+			grid-template-areas:	"users"
+									"users"
+									"users";
 		}
 	}
 </style>

@@ -27,6 +27,7 @@
 <style scoped>
 	.options-container {
 		display: flex;
+		max-height: 40px;
 	}
 
 	.options-button {

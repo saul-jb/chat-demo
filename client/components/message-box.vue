@@ -81,6 +81,7 @@
 
 		padding: 0;
 		margin: 0;
+		margin-top: auto;
 	}
 
 	.send-button {
