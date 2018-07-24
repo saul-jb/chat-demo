@@ -1,6 +1,7 @@
 */build.js
 */build.js.map
 dist/
+Release.key
 
 # Logs
 logs

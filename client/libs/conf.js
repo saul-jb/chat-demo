@@ -5,7 +5,7 @@ let conf = {...defaultConf};
 
 // When we build for production, merge production conf
 if (process.env.NODE_ENV === "production") {
-	conf = {...conf, ...productionConf};
+	conf = {...productionConf, ...conf};
 }
 
 export default conf;
