@@ -1,11 +1,16 @@
 <template>
-	<div>
-		<form @sumbit.prevent="newChannel">
-			<label for="name">Channel Name</label>
-			<input type="text" v-model="name" id="name" />
+	<div class="page flex-center">
+		<form class="form-main">
+			<h2 class="form-heading">Create A Channel</h2>
+			<div class="error" v-if="error">
+				{{error}}
+			</div>
+			<label class="form-label" for="name">
+				Channel Name:
+				<input class="form-input" required v-model="name" type="text" id="name" />
+			</label>
+			<div @click.prevent="newChannel" class="form-button">Create</div>
 		</form>
-		create a channel
-		<button @click="newChannel">newChannel</button>
 	</div>
 </template>
 
@@ -15,7 +20,8 @@
 	export default {
 		data () {
 			return {
-				name: ""
+				name: "",
+				error: ""
 			};
 		},
 
@@ -27,14 +33,15 @@
 
 		methods: {
 			newChannel () {
+				this.error = "";
 				this.createChannel({title: this.name, userId: this.userId}).then(channel => {
-					// return this.getChannels({admins: this.userId});
+					this.$router.push({name: "Chat"});
 				}).catch(err => {
-					console.error(err);
+					this.error = err.message;
 				});
 			},
 
-			...mapActions("channels", ["createChannel", "getChannels"])
+			...mapActions("channels", ["createChannel"])
 		}
 	};
 </script>

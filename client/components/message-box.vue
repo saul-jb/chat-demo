@@ -1,5 +1,5 @@
 <template>
-	<div id="message-box">
+	<div class="message-box">
 		<textarea-autosize
 			class="input-field"
 			placeholder="Type something here..."
@@ -70,7 +70,7 @@
 </script>
 
 <style scoped>
-	#message-box {
+	.message-box {
 		display: flex;
 	}
 

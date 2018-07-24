@@ -2,6 +2,7 @@
 	<div>
 		<div class="channel-button" @click="selectChannel">
 			{{ channel.title }} <span v-if="hasUnread">({{ unread }})</span>
+			<slot></slot>
 		</div>
 	</div>
 </template>

@@ -1,12 +1,12 @@
 <template>
 	<div class="chat-page">
-		<Channels class="blue-border" id="channels" />
+		<Channels class="blue-border channels" />
 		<div class="message-container">
 			<ChannelOptions :parentRefs="this.$refs" />
-			<MessageHistory ref="messageHistory" id="message-history" />
-			<MessageBox id="message-box" :parentRefs="this.$refs" />
+			<MessageHistory ref="messageHistory" class="message-history" />
+			<MessageBox class="message-box" :parentRefs="this.$refs" />
 		</div>
-		<Users class="blue-border" id="users" />
+		<Users class="blue-border users" />
 		<!-- < -->
 	</div>
 </template>
@@ -35,8 +35,8 @@
 <style scoped>
 	.chat-page {
 		display: grid;
-		grid-template-columns: repeat(7, minmax(80px, 1fr));
-		grid-template-rows: repeat(1, minmax(1px, 1fr));
+		grid-template-columns: repeat(7, minmax(110px, 1fr));
+		grid-template-rows: repeat(1, minmax(0, 1fr));
 
 		height: 100%;
 
@@ -47,7 +47,7 @@
 		border: 1px solid #3399ff;
 	}
 
-	#channels {
+	.channels {
 		overflow-y: auto;
 		overflow-x: hidden;
 
@@ -67,16 +67,16 @@
 		flex-direction: column;
 	}
 
-	#message-history {
+	.message-history {
 		height: 100%;
 	}
 
-	#message-box {
+	.message-box {
   		flex: 1;
 		height: 40px;
 	}
 
-	#users {
+	.users {
 		overflow-y: auto;
 		overflow-x: hidden;
 

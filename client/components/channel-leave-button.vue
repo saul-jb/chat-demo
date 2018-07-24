@@ -24,22 +24,38 @@
 		methods: {
 			leaveChannel () {
 				if (this.currentChannel) {
+					let method = this.removeChannel;
+
 					if (this.isAdmin) {
-						this.deleteChannel(this.currentChannel._id);
-					} else {
-						this.removeChannel(this.currentChannel._id).then(() => {
-							return Promise.all([
-								this.loadChannels(),
-								this.setCurrentChannel(null)
-							]);
-						}).catch(err => {
-							console.error(err);
-						});
+						method = this.deleteChannel;
 					}
+
+					method(this.currentChannel._id).then(() => {
+						return Promise.all([
+							this.loadChannels(),
+							this.setCurrentChannel(null)
+						]);
+					}).catch(err => {
+						console.error(err);
+					});
 				}
 			},
 
-			...mapActions("channels", ["removeChannel", "deleteChannel"]),
+			loadChannels () {
+				this.getChannels({
+					criteria: {
+						$or: [
+							{admins: this.userId},
+							{users: this.userId}
+						]
+					},
+					update: true
+				}).catch(err => {
+					console.error(err);
+				});
+			},
+
+			...mapActions("channels", ["removeChannel", "deleteChannel", "getChannels"]),
 			...mapMutations("channels", ["setCurrentChannel"])
 		}
 	};

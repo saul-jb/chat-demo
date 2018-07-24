@@ -1,5 +1,5 @@
 <template>
-	<div @scroll.passive="onScroll">
+	<div class="message-history" @scroll.passive="onScroll">
 		<div v-for="message in messages">
 			{{ message.username }}: <span v-html="message.text">{{ message.text }}</span>
 		</div>
@@ -81,7 +81,7 @@
 </script>
 
 <style scoped>
-	#message-history {
+	.message-history {
 		padding: 5px 30px;
 		overflow-y: auto;
 		overflow-wrap: break-word;

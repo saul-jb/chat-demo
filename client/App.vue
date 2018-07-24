@@ -42,6 +42,8 @@
 
 		height: 100%;
 
+		overflow: auto;
+
 		padding: 4% 8%;
 	}
 

@@ -5,15 +5,21 @@
 </template>
 
 <script>
-	import {mapActions} from "vuex";
+	import {mapActions, mapMutations} from "vuex";
 
 	export default {
 		created () {
 			this.signOut();
+			this.setCurrentChannel(null);
+			this.setMessages([]);
 		},
 
 		methods: {
-			...mapActions("user", ["signOut"])
+			...mapActions("user", ["signOut"]),
+			...mapMutations({
+				setCurrentChannel: "channels/setCurrentChannel",
+				setMessages: "messages/setMessages"
+			})
 		}
 	};
 </script>

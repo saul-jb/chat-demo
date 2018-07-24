@@ -1,7 +1,9 @@
 <template>
 	<div>
 		<div v-for="channel in channels">
-			<Channel :channel="channel" @selectedChannel="addChannel" />
+			<Channel :channel="channel" @selectedChannel="addChannel">
+				<br />Users: {{channel.admins.length + channel.users.length}}
+			</Channel>
 		</div>
 	</div>
 </template>
@@ -60,5 +62,9 @@
 </script>
 
 <style scoped>
-
+.page {
+	display: flex;
+flex-direction: column;
+align-items: center;
+}
 </style>

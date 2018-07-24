@@ -1,5 +1,5 @@
 <template>
-	<div id="channels">
+	<div class="channels">
 		<div v-for="channel in userChannels">
 			<Channel :channel="channel" :unread="channel.unread" @selectedChannel="selectedChannel" />
 		</div>
@@ -41,7 +41,6 @@
 			},
 
 			loadChannels () {
-				console.log(this.userId);
 				this.getChannels({
 					criteria: {
 						$or: [
@@ -71,7 +70,7 @@
 		margin-top: 10px;
 	}
 
-	#channels {
+	.channels {
 		display: flex;
 		flex-direction: column;
 
