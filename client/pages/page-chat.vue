@@ -129,7 +129,7 @@
 	.chat-page {
 		display: grid;
 		grid-template-columns: 20% 60% 20%;
-		grid-template-rows: 40px, calc(100% - 80px), 40px;
+		grid-template-rows: 40px calc(100% - 80px) 40px;
 		grid-template-areas:	"channels	options		users"
 								"channels	messages	users"
 								"channels	input		users";
@@ -156,6 +156,7 @@
 
 	.message-history {
 		grid-area: messages;
+		height: 100%;
 	}
 
 	.message-box {

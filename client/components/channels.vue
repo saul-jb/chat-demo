@@ -6,7 +6,7 @@
 				:channel="channel"
 				@selectedChannel="selectedChannel"
 			>
-				<span v-if="channel.unread">({{ unread }})</span>
+				<span v-if="channel.unread">({{ channel.unread }})</span>
 			</Channel>
 		</div>
 

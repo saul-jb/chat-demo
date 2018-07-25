@@ -12,6 +12,8 @@ const socket = io(`http://${conf.host}:${conf.port}`, {
 });
 
 client.configure(auth({ storage: localStorage }));
-client.configure(socketio(socket));
+client.configure(socketio(socket, {
+	timeout: 10000
+}));
 
 export default client;
