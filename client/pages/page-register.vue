@@ -44,11 +44,16 @@
 				}).then(() => {
 					this.$router.push({name: "Chat"});
 				}).catch(err => {
-					this.error = err.message;
+					this.signIn({email: this.email, password: this.password}).then(() => {
+						this.$router.push({name: "Chat"});
+					}).catch(signInError => {
+						this.error = err.message;
+					});
 				});
 			},
 			...mapActions("user", {
-				createUserAccount: "createAccount"
+				createUserAccount: "createAccount",
+				signIn: "signIn"
 			})
 		}
 	};
