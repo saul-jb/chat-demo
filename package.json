@@ -22,10 +22,6 @@
 		"clean": "rimraf dist"
 	},
 	"build": {
-		"appId": "your.id",
-		"mac": {
-			"category": "your.app.category.type"
-		}
 	},
 	"dependencies": {
 		"@feathersjs/authentication": "^2.1.7",

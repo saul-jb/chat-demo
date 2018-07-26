@@ -19,9 +19,9 @@
       "header": {
         "typ": "access"
       },
-      "audience": "https://yourdomain.com",
+      "audience": "104.237.139.237",
       "subject": "anonymous",
-      "issuer": "feathers",
+      "issuer": "chat-demo",
       "algorithm": "HS256",
       "expiresIn": "1d"
     },
